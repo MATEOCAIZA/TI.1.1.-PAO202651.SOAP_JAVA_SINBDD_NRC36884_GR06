@@ -1,0 +1,9 @@
+ec\edu\monster\model\ConversionType.class
+ec\edu\monster\controller\ConversionController$1.class
+ec\edu\monster\cliesc_convuni_soap_gr08\CLIESC_CONVUNI_SOAP_GR08.class
+ec\edu\monster\view\ConversionLogin.class
+ec\edu\monster\model\ConversionCategory.class
+ec\edu\monster\view\ConversionVista.class
+ec\edu\monster\controller\AuthController.class
+ec\edu\monster\wsclient\WSConversionUnidadesClient.class
+ec\edu\monster\controller\ConversionController.class
