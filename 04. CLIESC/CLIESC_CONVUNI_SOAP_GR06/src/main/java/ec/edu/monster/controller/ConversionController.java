@@ -11,7 +11,7 @@ public class ConversionController {
 
     // URL del WSDL del servidor (otro proyecto)
     private static final String WSDL_URL =
-        "http://localhost:8080/WS_ConUni_SOAPJAVA_GR08/WSConversionUnidades?wsdl";
+        "http://localhost:8080/WS_ConUni_SOAPJAVA_GR06/WSConversionUnidades?wsdl";
 
     // Deben coincidir con el WSDL: targetNamespace, serviceName y portName
     private static final String NS = "http://ws.monster.edu.ec/";

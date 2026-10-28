@@ -2,7 +2,7 @@ package ec.edu.monster.controller;
 
 public class AuthController {
     private static final String USER = "MONSTER";
-    private static final String PASS = "MONSTER9";
+    private static final String PASS = "MONSTER69";
 
     public boolean login(String u, String p) {
         if (u == null || p == null) return false;

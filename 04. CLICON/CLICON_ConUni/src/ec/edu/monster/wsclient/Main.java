@@ -18,11 +18,11 @@ public class Main {
 
     // === Configuración ===
     private static final String ENDPOINT =
-            "http://localhost:8080/WS_ConUni_SOAPJAVA_GR08/WSConversionUnidades";
+            "http://localhost:8080/WS_ConUni_SOAPJAVA_GR06/WSConversionUnidades";
 
     // Credenciales de login
     private static final String USERNAME = "MONSTER";
-    private static final String PASSWORD = "MONSTER9";
+    private static final String PASSWORD = "MONSTER69";
 
     // Timeouts opcionales (ms)
     private static final int CONNECT_TIMEOUT_MS = 5000;

@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
-    <exec.mainClass>ec.edu.monster.cliesc_convuni_soap_gr08.CLIESC_CONVUNI_SOAP_GR08</exec.mainClass>
+    <exec.mainClass>ec.edu.monster.cliesc_convuni_soap_gr06.CLIESC_CONVUNI_SOAP_GR06</exec.mainClass>
   </properties>
 
   <dependencies>
