@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://ws.monster.edu.ec/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             targetNamespace="http://ws.monster.edu.ec/" 
+             name="WSConversionUnidades">
+  <types>
+    <xsd:schema targetNamespace="http://ws.monster.edu.ec/">
+      <!-- Longitud -->
+      <xsd:element name="centimetrosAPulgadas" type="tns:centimetrosAPulgadas"/>
+      <xsd:element name="centimetrosAPulgadasResponse" type="tns:centimetrosAPulgadasResponse"/>
+      <xsd:complexType name="centimetrosAPulgadas">
+        <xsd:sequence><xsd:element name="centimetros" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="centimetrosAPulgadasResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:element name="pulgadasACentimetros" type="tns:pulgadasACentimetros"/>
+      <xsd:element name="pulgadasACentimetrosResponse" type="tns:pulgadasACentimetrosResponse"/>
+      <xsd:complexType name="pulgadasACentimetros">
+        <xsd:sequence><xsd:element name="pulgadas" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="pulgadasACentimetrosResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+
+      <!-- Temperatura -->
+      <xsd:element name="celsiusAFahrenheit" type="tns:celsiusAFahrenheit"/>
+      <xsd:element name="celsiusAFahrenheitResponse" type="tns:celsiusAFahrenheitResponse"/>
+      <xsd:complexType name="celsiusAFahrenheit">
+        <xsd:sequence><xsd:element name="celsius" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="celsiusAFahrenheitResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:element name="fahrenheitACelsius" type="tns:fahrenheitACelsius"/>
+      <xsd:element name="fahrenheitACelsiusResponse" type="tns:fahrenheitACelsiusResponse"/>
+      <xsd:complexType name="fahrenheitACelsius">
+        <xsd:sequence><xsd:element name="fahrenheit" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="fahrenheitACelsiusResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+
+      <!-- Masa -->
+      <xsd:element name="kilogramosALibras" type="tns:kilogramosALibras"/>
+      <xsd:element name="kilogramosALibrasResponse" type="tns:kilogramosALibrasResponse"/>
+      <xsd:complexType name="kilogramosALibras">
+        <xsd:sequence><xsd:element name="kilogramos" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="kilogramosALibrasResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:element name="librasAKilogramos" type="tns:librasAKilogramos"/>
+      <xsd:element name="librasAKilogramosResponse" type="tns:librasAKilogramosResponse"/>
+      <xsd:complexType name="librasAKilogramos">
+        <xsd:sequence><xsd:element name="libras" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="librasAKilogramosResponse">
+        <xsd:sequence><xsd:element name="return" type="xsd:float"/></xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+
+  <!-- Messages -->
+  <message name="centimetrosAPulgadas"><part name="parameters" element="tns:centimetrosAPulgadas"/></message>
+  <message name="centimetrosAPulgadasResponse"><part name="parameters" element="tns:centimetrosAPulgadasResponse"/></message>
+  <message name="pulgadasACentimetros"><part name="parameters" element="tns:pulgadasACentimetros"/></message>
+  <message name="pulgadasACentimetrosResponse"><part name="parameters" element="tns:pulgadasACentimetrosResponse"/></message>
+  <message name="celsiusAFahrenheit"><part name="parameters" element="tns:celsiusAFahrenheit"/></message>
+  <message name="celsiusAFahrenheitResponse"><part name="parameters" element="tns:celsiusAFahrenheitResponse"/></message>
+  <message name="fahrenheitACelsius"><part name="parameters" element="tns:fahrenheitACelsius"/></message>
+  <message name="fahrenheitACelsiusResponse"><part name="parameters" element="tns:fahrenheitACelsiusResponse"/></message>
+  <message name="kilogramosALibras"><part name="parameters" element="tns:kilogramosALibras"/></message>
+  <message name="kilogramosALibrasResponse"><part name="parameters" element="tns:kilogramosALibrasResponse"/></message>
+  <message name="librasAKilogramos"><part name="parameters" element="tns:librasAKilogramos"/></message>
+  <message name="librasAKilogramosResponse"><part name="parameters" element="tns:librasAKilogramosResponse"/></message>
+
+  <!-- PortType -->
+  <portType name="WSConversionUnidades">
+    <operation name="centimetrosAPulgadas"><input message="tns:centimetrosAPulgadas"/><output message="tns:centimetrosAPulgadasResponse"/></operation>
+    <operation name="pulgadasACentimetros"><input message="tns:pulgadasACentimetros"/><output message="tns:pulgadasACentimetrosResponse"/></operation>
+    <operation name="celsiusAFahrenheit"><input message="tns:celsiusAFahrenheit"/><output message="tns:celsiusAFahrenheitResponse"/></operation>
+    <operation name="fahrenheitACelsius"><input message="tns:fahrenheitACelsius"/><output message="tns:fahrenheitACelsiusResponse"/></operation>
+    <operation name="kilogramosALibras"><input message="tns:kilogramosALibras"/><output message="tns:kilogramosALibrasResponse"/></operation>
+    <operation name="librasAKilogramos"><input message="tns:librasAKilogramos"/><output message="tns:librasAKilogramosResponse"/></operation>
+  </portType>
+
+  <!-- Binding -->
+  <binding name="WSConversionUnidadesPortBinding" type="tns:WSConversionUnidades">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="centimetrosAPulgadas"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    <operation name="pulgadasACentimetros"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    <operation name="celsiusAFahrenheit"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    <operation name="fahrenheitACelsius"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    <operation name="kilogramosALibras"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    <operation name="librasAKilogramos"><soap:operation soapAction=""/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+  </binding>
+
+  <!-- Service -->
+  <service name="WSConversionUnidades">
+    <port name="WSConversionUnidadesPort" binding="tns:WSConversionUnidadesPortBinding">
+      <soap:address location="http://localhost:8080/WS_ConUni_SOAPJAVA_GR06/WSConversionUnidades"/>
+    </port>
+  </service>
+</definitions>
