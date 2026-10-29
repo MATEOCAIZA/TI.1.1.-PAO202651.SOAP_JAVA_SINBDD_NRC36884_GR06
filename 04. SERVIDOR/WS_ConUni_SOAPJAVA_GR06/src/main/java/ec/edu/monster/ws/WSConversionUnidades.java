@@ -54,4 +54,14 @@ public class WSConversionUnidades {
         ConversionUnidadesServicio conversionUnidades = new ConversionUnidadesServicio();
         return conversionUnidades.librasAKilogramos(libras);
     }
+
+    // ===== General (masa, longitud, temperatura) =====
+    @WebMethod(operationName = "convertir")
+    public double convertir(@WebParam(name = "categoria") String categoria,
+                            @WebParam(name = "origen") String origen,
+                            @WebParam(name = "destino") String destino,
+                            @WebParam(name = "valor") double valor) {
+        ConversionUnidadesServicio conversionUnidades = new ConversionUnidadesServicio();
+        return conversionUnidades.convertir(categoria, origen, destino, valor);
+    }
 }

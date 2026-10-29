@@ -25,9 +25,29 @@ public class SoapClient {
      * @throws Exception Si hay algún error en la comunicación
      */
     public static float callConversion(String methodName, String paramName, float value) throws Exception {
-        // Construir el envelope SOAP manualmente
-        String soapEnvelope = buildSoapEnvelope(methodName, paramName, value);
-        
+        return post(buildSoapEnvelope(methodName, paramName, value), methodName);
+    }
+
+    /**
+     * Llama a la operación general "convertir" (cualquier par de unidades de la categoría)
+     */
+    public static float callConvertir(String categoria, String origen, String destino, float valor) throws Exception {
+        String soapEnvelope = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
+                "<S:Header/>" +
+                "<S:Body>" +
+                "<ns2:convertir xmlns:ns2=\"" + Constants.NAMESPACE + "\">" +
+                "<categoria>" + categoria + "</categoria>" +
+                "<origen>" + origen + "</origen>" +
+                "<destino>" + destino + "</destino>" +
+                "<valor>" + valor + "</valor>" +
+                "</ns2:convertir>" +
+                "</S:Body>" +
+                "</S:Envelope>";
+        return post(soapEnvelope, "convertir");
+    }
+
+    private static float post(String soapEnvelope, String methodName) throws Exception {
         // Crear el request body
         RequestBody body = RequestBody.create(soapEnvelope, SOAP_MEDIA_TYPE);
         

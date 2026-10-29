@@ -87,21 +87,37 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Campos limpiados", Toast.LENGTH_SHORT).show();
     }
 
-    private void actualizarConversiones(int categoria) {
-        String[] conversiones;
+    // Unidades por categoría (mismo orden que los demás clientes): código para el servidor y nombre visible
+    private static final String[][] LONGITUD = {{"m", "Metros"}, {"cm", "Centímetros"}, {"km", "Kilómetros"}, {"in", "Pulgadas"}, {"ft", "Pies"}};
+    private static final String[][] TEMPERATURA = {{"C", "Celsius"}, {"F", "Fahrenheit"}, {"K", "Kelvin"}, {"R", "Rankine"}};
+    private static final String[][] MASA = {{"kg", "Kilogramos"}, {"g", "Gramos"}, {"lb", "Libras"}, {"oz", "Onzas"}, {"t", "Toneladas"}};
+
+    // Pares origen/destino que muestra el spinner de conversión (índice 0 = "Seleccionar Conversión")
+    private final java.util.List<String[]> pares = new java.util.ArrayList<>();
+
+    private static String[][] unidades(int categoria) {
         switch (categoria) {
-            case 1: // Longitud
-                conversiones = new String[]{"Seleccionar Conversión", "Centímetros a Pulgadas", "Pulgadas a Centímetros"};
-                break;
-            case 2: // Temperatura
-                conversiones = new String[]{"Seleccionar Conversión", "Celsius a Fahrenheit", "Fahrenheit a Celsius"};
-                break;
-            case 3: // Masa
-                conversiones = new String[]{"Seleccionar Conversión", "Kilogramos a Libras", "Libras a Kilogramos"};
-                break;
-            default:
-                conversiones = new String[]{"Primero seleccione una categoría"};
-                break;
+            case 1: return LONGITUD;
+            case 2: return TEMPERATURA;
+            case 3: return MASA;
+            default: return new String[0][];
+        }
+    }
+
+    private void actualizarConversiones(int categoria) {
+        pares.clear();
+        java.util.List<String> conversiones = new java.util.ArrayList<>();
+        String[][] u = unidades(categoria);
+        if (u.length == 0) {
+            conversiones.add("Primero seleccione una categoría");
+        } else {
+            conversiones.add("Seleccionar Conversión");
+            for (String[] origen : u)
+                for (String[] destino : u)
+                    if (origen != destino) {
+                        pares.add(new String[]{origen[0], destino[0]});
+                        conversiones.add(origen[1] + " a " + destino[1]);
+                    }
         }
         ArrayAdapter<String> adapterConv = new ArrayAdapter<>(this, R.layout.spinner_item, conversiones);
         adapterConv.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -123,54 +139,20 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        String metodo = "";
-        String parametro = "";
-        String unidadResultado = "";
-
-        // Determinar método SOAP según selección
-        if (categoria == 1) { // Longitud
-            if (conversion == 1) {
-                metodo = "centimetrosAPulgadas";
-                parametro = "centimetros";
-                unidadResultado = "in";
-            } else {
-                metodo = "pulgadasACentimetros";
-                parametro = "pulgadas";
-                unidadResultado = "cm";
-            }
-        } else if (categoria == 2) { // Temperatura
-            if (conversion == 1) {
-                metodo = "celsiusAFahrenheit";
-                parametro = "celsius";
-                unidadResultado = "°F";
-            } else {
-                metodo = "fahrenheitACelsius";
-                parametro = "fahrenheit";
-                unidadResultado = "°C";
-            }
-        } else if (categoria == 3) { // Masa
-            if (conversion == 1) {
-                metodo = "kilogramosALibras";
-                parametro = "kilogramos";
-                unidadResultado = "lb";
-            } else {
-                metodo = "librasAKilogramos";
-                parametro = "libras";
-                unidadResultado = "kg";
-            }
-        }
-
-        convertir(metodo, parametro, valor, unidadResultado);
+        String[] par = pares.get(conversion - 1);
+        String nombreCategoria = spinnerCategoria.getSelectedItem().toString().toLowerCase();
+        String unidadResultado = categoria == 2 ? (par[1].equals("K") ? "K" : "°" + par[1]) : par[1];
+        convertir(nombreCategoria, par[0], par[1], valor, unidadResultado);
     }
 
-    private void convertir(String metodo, String parametro, String valorStr, String unidad) {
+    private void convertir(String categoria, String origen, String destino, String valorStr, String unidad) {
         new Thread(() -> {
             try {
                 float valor = Float.parseFloat(valorStr);
-                float resultado = SoapClient.callConversion(metodo, parametro, valor);
+                float resultado = SoapClient.callConvertir(categoria, origen, destino, valor);
                 runOnUiThread(() -> {
                     cardResultado.setVisibility(View.VISIBLE);
-                    tvResultado.setText(String.format("%.2f", resultado));
+                    tvResultado.setText(String.format("%.4f", resultado));
                     tvUnidad.setText(unidad);
                 });
             } catch (Exception e) {
