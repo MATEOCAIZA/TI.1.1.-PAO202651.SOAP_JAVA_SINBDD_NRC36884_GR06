@@ -10,70 +10,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Unidades SOAP</title>
+    <title>Conversor de Unidades</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: #ffffff; width: 100%; max-width: 450px; padding: 35px 30px; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
-        .user-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 0.85rem; color: #64748b; font-weight: 600; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
-        .btn-logout { color: #ef4444; text-decoration: none; font-weight: 700; }
-        .btn-logout:hover { text-decoration: underline; }
-        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
-        .card-header img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6; }
-        .card-header h2 { font-size: 1.25rem; color: #0f172a; font-weight: 700; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 0.875rem; font-weight: 600; color: #334155; margin-bottom: 6px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px 14px; font-size: 0.95rem; border: 1.5px solid #cbd5e1; border-radius: 8px; outline: none; background-color: #ffffff; }
-        .form-group input:focus, .form-group select:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-        .btn-submit { width: 100%; background-color: #10b981; color: #ffffff; padding: 12px; font-size: 1rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
-        .btn-submit:hover { background-color: #059669; }
-        .result-box { margin-top: 22px; padding: 16px; background-color: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 8px; text-align: center; }
-        .result-title { font-size: 0.8rem; text-transform: uppercase; color: #166534; font-weight: 700; margin-bottom: 4px; }
-        .result-value { font-size: 1.25rem; color: #15803d; font-weight: 800; word-break: break-all; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #d1d5db;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .main-card {
+            background: #ffffff;
+            width: 620px;
+            padding: 45px 50px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+        .select-categoria {
+            width: 100%;
+            padding: 7px 10px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #2c3e50;
+            background-color: #b0c4de;
+            border: 1px solid #7a8a9e;
+            outline: none;
+        }
+        .input-valor {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 0.95rem;
+            border: 1px solid #7f8c8d;
+            background-color: #ffffff;
+            outline: none;
+        }
+        .row-unidades {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .col-unidad {
+            flex: 1;
+        }
+        .select-unidad {
+            width: 100%;
+            padding: 7px 10px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #2c3e50;
+            background-color: #e6ecf2;
+            border: 1px solid #9aa7b5;
+            outline: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .btn-convert {
+            flex: 1;
+            background-color: #27ae60;
+            color: #ffffff;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-clear {
+            flex: 1;
+            background-color: #95a5a6;
+            color: #ffffff;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+        .result-container {
+            margin-top: 10px;
+        }
+        .result-label {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        .result-value {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-top: 6px;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="user-bar">
-            <span>Bienvenido, <strong><%= session.getAttribute("usuarioLogueado") %></strong></span>
-            <a href="LogoutServlet" class="btn-logout">Cerrar Sesión</a>
-        </div>
+    <div class="main-card">
+        <form action="ConversionServlet" method="POST" id="formConversor">
+            <input type="hidden" name="tipoConversion" id="tipoConversionHidden" value="cm_in" />
 
-        <div class="card-header">
-            <img src="images/monster.jpg" alt="Monster Logo">
-            <h2>Conversor de Unidades SOAP</h2>
-        </div>
-
-        <form action="ConversionServlet" method="POST">
+            <!-- Categoría -->
             <div class="form-group">
-                <label>Valor a convertir</label>
-                <input type="number" step="any" name="valor" value="${valor != null ? valor : ''}" placeholder="Ingrese un número" required />
-            </div>
-
-            <div class="form-group">
-                <label>Tipo de Conversión</label>
-                <select name="tipoConversion">
-                    <option value="cm_in" ${tipoSeleccionado == 'cm_in' ? 'selected' : ''}>Centímetros a Pulgadas (cm → in)</option>
-                    <option value="in_cm" ${tipoSeleccionado == 'in_cm' ? 'selected' : ''}>Pulgadas a Centímetros (in → cm)</option>
-                    <option value="c_f" ${tipoSeleccionado == 'c_f' ? 'selected' : ''}>Celsius a Fahrenheit (°C → °F)</option>
-                    <option value="f_c" ${tipoSeleccionado == 'f_c' ? 'selected' : ''}>Fahrenheit a Celsius (°F → °C)</option>
-                    <option value="kg_lb" ${tipoSeleccionado == 'kg_lb' ? 'selected' : ''}>Kilogramos a Libras (kg → lb)</option>
-                    <option value="lb_kg" ${tipoSeleccionado == 'lb_kg' ? 'selected' : ''}>Libras a Kilogramos (lb → kg)</option>
+                <label>Categoría:</label>
+                <select id="categoriaSelect" class="select-categoria" onchange="actualizarUnidades()">
+                    <option value="longitud">longitud</option>
+                    <option value="temperatura">temperatura</option>
+                    <option value="masa">masa</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn-submit">Calcular Conversión</button>
+            <!-- Valor a Convertir -->
+            <div class="form-group">
+                <label>Valor a Convertir:</label>
+                <input type="number" step="any" name="valor" class="input-valor" value="${valor != null ? valor : ''}" required />
+            </div>
+
+            <!-- Unidad Origen y Destino -->
+            <div class="row-unidades">
+                <div class="col-unidad">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>Unidad Origen:</label>
+                        <select id="origenSelect" class="select-unidad" onchange="sincronizarTipo()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-unidad">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>Unidad Destino:</label>
+                        <select id="destinoSelect" class="select-unidad" onchange="sincronizarTipo()">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="btn-group">
+                <button type="submit" class="btn-convert">Convertir</button>
+                <a href="conversion.jsp" class="btn-clear">Limpiar</a>
+            </div>
         </form>
 
-        <% 
-            String resultado = (String) request.getAttribute("resultado");
-            if (resultado != null) {
-        %>
-            <div class="result-box">
-                <div class="result-title">Resultado obtenido</div>
+        <div class="result-container">
+            <div class="result-label">Resultado:</div>
+            <% 
+                String resultado = (String) request.getAttribute("resultado");
+                if (resultado != null) {
+            %>
                 <div class="result-value"><%= resultado %></div>
-            </div>
-        <% } %>
+            <% } %>
+        </div>
     </div>
+
+    <script>
+        const opcionesMap = {
+            longitud: {
+                origen: [{val: 'cm', text: 'cm'}, {val: 'in', text: 'in'}],
+                destino: [{val: 'in', text: 'in'}, {val: 'cm', text: 'cm'}]
+            },
+            temperatura: {
+                origen: [{val: 'c', text: '°C'}, {val: 'f', text: '°F'}],
+                destino: [{val: 'f', text: '°F'}, {val: 'c', text: '°C'}]
+            },
+            masa: {
+                origen: [{val: 'kg', text: 'kg'}, {val: 'lb', text: 'lb'}],
+                destino: [{val: 'lb', text: 'lb'}, {val: 'kg', text: 'kg'}]
+            }
+        };
+
+        function actualizarUnidades() {
+            const cat = document.getElementById('categoriaSelect').value;
+            const origenSelect = document.getElementById('origenSelect');
+            const destinoSelect = document.getElementById('destinoSelect');
+
+            origenSelect.innerHTML = '';
+            destinoSelect.innerHTML = '';
+
+            opcionesMap[cat].origen.forEach(op => {
+                origenSelect.add(new Option(op.text, op.val));
+            });
+            opcionesMap[cat].destino.forEach(op => {
+                destinoSelect.add(new Option(op.text, op.val));
+            });
+
+            sincronizarTipo();
+        }
+
+        function sincronizarTipo() {
+            const origen = document.getElementById('origenSelect').value;
+            const destino = document.getElementById('destinoSelect').value;
+            document.getElementById('tipoConversionHidden').value = origen + '_' + destino;
+        }
+
+        window.onload = function() {
+            actualizarUnidades();
+            
+            const prevTipo = "${tipoSeleccionado}";
+            if (prevTipo) {
+                if (prevTipo === 'cm_in' || prevTipo === 'in_cm') {
+                    document.getElementById('categoriaSelect').value = 'longitud';
+                } else if (prevTipo === 'c_f' || prevTipo === 'f_c') {
+                    document.getElementById('categoriaSelect').value = 'temperatura';
+                } else if (prevTipo === 'kg_lb' || prevTipo === 'lb_kg') {
+                    document.getElementById('categoriaSelect').value = 'masa';
+                }
+                actualizarUnidades();
+                
+                const partes = prevTipo.split('_');
+                if (partes.length === 2) {
+                    document.getElementById('origenSelect').value = partes[0];
+                    document.getElementById('destinoSelect').value = partes[1];
+                    sincronizarTipo();
+                }
+            }
+        };
+    </script>
 </body>
 </html>
