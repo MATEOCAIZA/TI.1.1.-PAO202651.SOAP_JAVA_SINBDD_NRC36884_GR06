@@ -7,11 +7,10 @@ import javax.swing.JOptionPane;
 
 public class ConversionVista extends javax.swing.JFrame {
 
-    private final ConversionController conversionControlador;
+    private ConversionController conversionControlador; // se crea al convertir: sin servidor el login igual debe abrir la vista
 
     public ConversionVista() {
         initComponents();
-        this.conversionControlador = new ConversionController();
         this.setLocationRelativeTo(null); // Centrar en pantalla
 
         // Cargar categorías
@@ -206,6 +205,7 @@ public class ConversionVista extends javax.swing.JFrame {
             }
 
             // Invocar el cliente SOAP a través del controlador
+            if (conversionControlador == null) conversionControlador = new ConversionController();
             float resultado = conversionControlador.convertir(tipo, valor);
             lblResultado.setText(String.format("%.4f %s", resultado, destino));
 

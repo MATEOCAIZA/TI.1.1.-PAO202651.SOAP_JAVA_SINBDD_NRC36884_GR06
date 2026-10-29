@@ -104,7 +104,7 @@
   <!-- Service -->
   <service name="WSConversionUnidades">
     <port name="WSConversionUnidadesPort" binding="tns:WSConversionUnidadesPortBinding">
-      <soap:address location="http://localhost:8080/WS_ConUni_SOAPJAVA_GR06/WSConversionUnidades"/>
+      <soap:address location="http://172.20.10.2:8080/WS_ConUni_SOAPJAVA_GR06/WSConversionUnidades"/>
     </port>
   </service>
 </definitions>
