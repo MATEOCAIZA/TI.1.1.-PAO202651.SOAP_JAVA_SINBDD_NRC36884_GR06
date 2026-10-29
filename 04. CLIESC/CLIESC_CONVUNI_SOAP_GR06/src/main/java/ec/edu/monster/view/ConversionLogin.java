@@ -27,7 +27,7 @@ public class ConversionLogin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Conversor de Unidades - Login");
+        setTitle("SOAP JAVA - Login");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(44, 62, 80));
